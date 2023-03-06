@@ -1,0 +1,91 @@
+{
+    "type": "FeatureCollection",
+    "crs": {
+      "type": "name",
+      "properties": {
+          "name": "EPSG:4326"
+      }
+  },
+    "features": [
+      {
+        "type": "Feature",
+        "property": "value1",
+       
+        "name":"aaaaa",
+        "geometry": {
+          
+          "coordinates": [
+            34.8398670370475,
+            32.16753636044214
+          ],
+          
+          
+          "type": "Point"
+        },
+        "properties": {
+          "name": "aaaaaaaa",
+          "description": "135 S Linwood Beach, Linwood",
+          "type": "value1"
+      }
+  
+      },
+      {
+        "type": "Feature",
+        "property": "value2",
+        "name":"bbbb",
+        "geometry": {
+          
+          "coordinates": [
+            34.836530369033454,
+            32.166936952699714
+          ],
+         
+          "type": "Point"
+        },
+        "properties": {
+          "name": "bbbbbbbbb",
+          "description": "135 S Linwood Beach, Linwood",
+          "type": "value2"
+          
+      }
+      },
+      {
+        "type": "Feature",
+        
+        
+       
+        "geometry": {
+       
+          "coordinates": [
+            [
+              [
+                34.83531801055773,
+                32.16598334134426
+              ],
+              [
+                34.83531801055773,
+                32.16382178531832
+              ],
+              [
+                34.84101502250604,
+                32.16382178531832
+              ],
+              [
+                34.84101502250604,
+                32.16598334134426
+              ],
+              [
+                34.83531801055773,
+                32.16598334134426
+              ]
+            ]
+          ],
+          "type": "Polygon"
+        },
+        "properties": {
+          "name": "cccccccc",
+          "description": "135 S Linwood Beach, Linwood"
+      }
+      }
+    ]
+  }
