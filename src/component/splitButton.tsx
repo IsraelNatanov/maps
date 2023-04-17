@@ -9,27 +9,43 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 
-const options = ['אירוע 1', 'אירוע 2', 'אירוע 3'];
+const options = ['בחר/מחק אירוע','אירוע 1', 'אירוע 2', 'אירוע 3'];
 
-export default function SplitButton() {
+
+interface Iprops {
+ 
+  playEvent: (index: number) => void;
+
+}
+
+
+export default function SplitButton(props:Iprops) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
+    console.log(options[selectedIndex]);
   };
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number,
   ) => {
+  
+    
     setSelectedIndex(index);
     setOpen(false);
+ console.log(index);
+ props.playEvent(index)
+ 
   };
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
+  
+    
   };
 
   const handleClose = (event: Event) => {
@@ -46,7 +62,7 @@ export default function SplitButton() {
   return (
     <React.Fragment>
       <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button" sx={{backgroundColor:"white"}} >
-        <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+        <Button >{options[selectedIndex]}</Button>
         <Button
           size="small"
           aria-controls={open ? 'split-button-menu' : undefined}
@@ -82,7 +98,7 @@ export default function SplitButton() {
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
-                      disabled={index === 2}
+                      disabled={index === 3}
                       selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
                     >

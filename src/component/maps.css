@@ -83,8 +83,89 @@
 .map{
   position: relative;
 }
-.searchEvent{
+.navButton{
   position: absolute;
-  left: 37%;
+  left: 17%;
   top: 10px;
+}
+.row-box{
+  display: flex;
+  border:  1px solid;
+  /* border-width: 1px; */
+  border-radius: 5px;
+}
+.inpu-text{
+  display: flex;
+  background-color: antiquewhite;
+  height: 50px;
+  width: 130px;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 3px;
+  font: 10pt sans-serif;
+  border-top-left-radius: 3px;
+
+  
+}
+
+select{
+  width: 110px;
+  border: 0;
+  border-left: solid 1px;
+  display: flex;
+  padding: 10px;
+  /* margin: 10px; */
+
+
+  
+}
+select:active {
+  border-left: solid 1px;
+
+}
+.form-control{
+  width: 70px;
+  border: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-left: solid 1px;
+ 
+
+}
+
+button:active {
+  background-color: #bac5ba;
+
+  transform:matrix()
+}
+
+@media (max-width:970px) {
+  .navButton{
+  
+    left: 5%;
+ 
+  }
+  .inpu-text{
+
+    height: 50px;
+    width: 100px;
+  
+  }
+  
+  select{
+    width: 80px;
+
+    /* margin: 10px; */
+  
+  
+    
+  }
+  select:active {
+    border-left: solid 1px;
+  
+  }
+  .form-control{
+    width: 60px;
+
+  }
 }

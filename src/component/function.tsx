@@ -4,6 +4,9 @@ import Fill from "ol/style/Fill";
 import Icon from "ol/style/Icon";
 import Stroke from "ol/style/Stroke";
 import Style from "ol/style/Style";
+import styleR from '../images/icons8-map-64.png'
+import styleU from '../images/381599_error_icon.svg'
+import styleL from '../images/right-arrow.png'
 
 // Create a style function that applies the different styles based on a property value
 export const styleFunction = (feature: { get: (arg0: string) => string }) => {
@@ -19,7 +22,7 @@ export const styleFunction = (feature: { get: (arg0: string) => string }) => {
 // Create two different styles
 const styleRegular = new Style({
   image: new Icon({
-    src: "src/images/icons8-map-64.png",
+    src: styleR,
     anchor: [0.5, 1],
   }),
   stroke: new Stroke({
@@ -32,8 +35,12 @@ const styleRegular = new Style({
 });
 const styleUnique = new Style({
   image: new Icon({
-    src: "src/images/placeholder.png",
+    src: styleU,
     anchor: [0.5, 1],
+  }),
+  stroke: new Stroke({
+    color: "red",
+    width: 3,
   }),
 });
 
@@ -60,7 +67,7 @@ export const styleLineString = function (feature: any) {
         // style icon arrows
         geometry: new Point(end),
         image: new Icon({
-          src: "src/images/right-arrow.png",
+          src: styleL,
           anchor: [0.75, 0.5],
           rotateWithView: true,
           rotation: -rotation,
