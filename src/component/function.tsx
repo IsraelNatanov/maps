@@ -12,8 +12,18 @@ import styleL from '../images/right-arrow.png'
 export const styleFunction = (feature: { get: (arg0: string) => string }) => {
   if (feature.get("typeStyle") == "value2") {
     return styleUnique;
-  } else {
-    console.log(feature);
+  } 
+  else if(!feature.get("typeStyle")){
+    console.log(25);
+    
+    
+  }
+
+
+  else {
+    console.log(feature.get("typeStyle"));
+    
+    console.log(1111111);
 
     return styleRegular;
   }

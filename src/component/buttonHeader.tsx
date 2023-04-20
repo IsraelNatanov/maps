@@ -108,7 +108,7 @@ function ButtonHeader(props: Props) {
         SetViewLineString(false)
       }}}>בחר מיקומים</Button> */}
 
-      <SplitButton />
+      {/* <SplitButton /> */}
 
       {/* <Button variant="outlined" href="#contained-buttons">
       Link

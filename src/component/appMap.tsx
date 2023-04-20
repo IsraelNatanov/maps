@@ -24,6 +24,11 @@ import Stack from "@mui/material/Stack";
 import SplitButton from "./splitButton";
 import { Type } from "ol/geom/Geometry";
 import SelectInteraction from "./selectInteraction";
+import ButtonSelectEvent from "./buttonSelectEvent";
+import { Feature } from "ol";
+import FeatureFormat from "ol/format/Feature";
+import { useAppSelector } from "../store/hooks";
+import {Features} from "../store/features/typeOfSlice"
 
 const format = new GeoJSON({ featureProjection: "EPSG:3857" });
 
@@ -41,7 +46,11 @@ const AppMap: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [valueType, setValueType] = useState<Options["type"] | String>();
+  const [dataFullFeatures, setDataFullFeatures] = useState<Features[]>([])
 
+
+
+  
 
   let map = new Map();
 
@@ -68,18 +77,34 @@ const AppMap: React.FC = () => {
     style: styleLineString,
   });
   let mapSource = new Vectors();
+  // const data = useAppSelector((state) => state.feature.features)
+  // const featuresOfStore = async()=> {
+
+  //   setDataFullFeatures(data)
+ 
+  
+  // }
+  console.log(1222222);
+  
+  const dataEvent = ()=>{
+   
+    // dataAllEvent = featuresOfStore
+    
+  }
+ 
 
 
   function vectorLoader() {
     axios
       .get("http://localhost:9000/geojson")
       .then((res) => {
-        console.log(res.data);
+        console.log(25142,res.data);
         const features = format.readFeatures(res.data);
         mapSource.addFeatures(features);
       })
       .catch((error) => console.log(error));
   }
+
 
   let overlay: Overlay | null = null;
 
@@ -91,9 +116,12 @@ const AppMap: React.FC = () => {
   //     enabled: false,
   //   });
   // };
-
+  let eventSource = new Vectors()
 const modify = new Modify({source: sourceUse});
   useEffect(() => {
+    
+
+    // getApi()
     map = new Map({
       target: "map-container",
       view: new View({
@@ -110,7 +138,10 @@ const modify = new Modify({source: sourceUse});
     
       ],
     });
-
+    
+    
+     
+   
 
 
     const tooltip: HTMLElement | null = document.getElementById("tooltip");
@@ -161,7 +192,7 @@ const modify = new Modify({source: sourceUse});
     map.addInteraction(modify);
    
       console.log(map.getLayers().getArray()[1])
- 
+      //  getApi()
 
     // drawUse!.on('drawstart', function(e) {
     //   map.getLayers().getArray()[1]
@@ -239,43 +270,66 @@ const modify = new Modify({source: sourceUse});
 
 
   
-  const selectLineString = async () => {
-    let layers = map!.getInteractions().getArray().length;
-    if (layers == 9) {
-      console.log(map);
-      map!.removeOverlay(overlay!);
+  // const selectLineString = async () => {
+  //   let layers = map!.getInteractions().getArray().length;
+  //   if (layers == 9) {
+  //     console.log(map);
+  //     map!.removeOverlay(overlay!);
 
-      const addInteraction = async () => {
-        draw! = new Draw({
-          source: source,
-          type: "LineString",
-        });
-      };
-      addInteraction();
+  //     const addInteraction = async () => {
+  //       draw! = new Draw({
+  //         source: source,
+  //         type: "LineString",
+  //       });
+  //     };
+  //     addInteraction();
 
-      map!.addInteraction(draw!);
-    } else {
-      vector.getSource()!.clear(true);
-      map!.removeInteraction(draw!);
+  //     map!.addInteraction(draw!);
+  //   } else {
+  //     vector.getSource()!.clear(true);
+  //     map!.removeInteraction(draw!);
 
-      // map!.removeLayer(vector);
-      map!.addOverlay(overlay!);
-    }
-  };
+  //     // map!.removeLayer(vector);
+  //     map!.addOverlay(overlay!);
+  //   }
+  // };
+  let featureIndex = new Vector({
+    source: eventSource,
+    style: styleFunction
+  })
 
-  const playEvent = (index: number) => {
-    if (index == 0) {
-      map!.removeLayer(berlin);
-      map!.removeLayer(fuul);
+   
+  let featureOfIndex: Feature[]| null = null;
+  
+  const removEvent = ()=>{
+    map!.removeLayer(featureIndex)
+    return
+  }
+  let dataAllEvent: Features[]| null = null
+  const playEvent = async (index: number, data:Features) => {
+    // const data =await useAppSelector((state) => state.feature.features)
+
+   console.log(12);
+    
+   
+    if(index == null){
+      map!.removeLayer(featureIndex)
+      return;
     }
-    if (index == 1) {
-      map!.addLayer(berlin);
-      map!.removeLayer(fuul);
-    }
-    if (index == 2) {
-      map!.addLayer(fuul);
-      map!.removeLayer(berlin);
-    }
+   map!.removeLayer(featureIndex)
+   eventSource.clear()
+   console.log("data",data);
+   
+ 
+   
+  
+
+   featureOfIndex = format.readFeatures(data)
+   eventSource.addFeatures(featureOfIndex)
+
+   if(index > 0){
+    map!.addLayer(featureIndex)
+   }
   };
 
   const sourceberlin = new Vectors({
@@ -326,7 +380,7 @@ const modify = new Modify({source: sourceUse});
               onClick={() => {
                 const layers = map!.getLayers().getArray();
                 if (layers.includes(vectorLayer)) {
-                  console.log(layers);
+                  console.log(layers,25);
                   map!.removeLayer(vectorLayer);
                 } else {
                   setLoading(true);
@@ -340,7 +394,7 @@ const modify = new Modify({source: sourceUse});
                     source: mapSource,
                     style: styleFunction,
 
-                    // title: 'b_layer',
+    
                   });
                   map!.addLayer(vectorLayer);
                   setLoading(false);
@@ -352,7 +406,7 @@ const modify = new Modify({source: sourceUse});
               הצג/מחק אתרים
             </Button>
           )}
-          <Button
+          {/* <Button
             variant="outlined"
             sx={{
               backgroundColor: "white",
@@ -363,9 +417,9 @@ const modify = new Modify({source: sourceUse});
             onClick={selectLineString}
           >
             בחר/מחק מרחק
-          </Button>
+          </Button> */}
 
-          <SplitButton playEvent={playEvent} />
+          <ButtonSelectEvent playEvent={playEvent} removEvent={removEvent} />
         </Stack>
       </div>
     </div>
